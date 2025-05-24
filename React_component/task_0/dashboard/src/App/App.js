@@ -11,8 +11,27 @@ import CourseList from '../CourseList/CourseList';
 import { getLatestNotification } from '../utils/utils';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleKeydown = this.handleKeydown.bind(this);
+  }
+
+  handleKeydown(e) {
+    if (e.ctrlKey && e.key === 'h') {
+      alert('Logging you out');
+      this.props.logOut();
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeydown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeydown);
+  }
+
   render() {
-    // instantiate vars from props
     const { isLoggedIn } = this.props;
 
     const listCourses = [
@@ -20,32 +39,35 @@ class App extends React.Component {
       { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
     ];
+
     const htmlObj = getLatestNotification();
     const listNotifications = [
       { id: 1, type: 'default', value: 'New course available' },
       { id: 2, type: 'urgent', value: 'New course available' },
       { id: 3, type: 'urgent', html: htmlObj },
-    ]
+    ];
 
     return (
       <>
-        <Notifications displayDrawer={ false } listNotifications={ listNotifications } />
+        <Notifications displayDrawer={false} listNotifications={listNotifications} />
         <div className="App">
           <Header />
-          { isLoggedIn ? <CourseList listCourses={ listCourses } /> : <Login /> }
+          {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
           <Footer />
         </div>
       </>
-    )
+    );
   }
 }
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
+  logOut: PropTypes.func,
 };
 
 App.defaultProps = {
   isLoggedIn: false,
+  logOut: () => {},
 };
 
 export default hot(module)(App);
