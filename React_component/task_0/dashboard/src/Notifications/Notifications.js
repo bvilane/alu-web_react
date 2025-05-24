@@ -3,7 +3,7 @@ import './Notifications.css';
 import close_icon from '../assets/close-icon.png';
 import { getLatestNotification } from '../utils/utils';
 
-export const Notifications = () => {
+const Notifications = () => {
     return (
         <div className="Notifications">
             <button
@@ -21,12 +21,16 @@ export const Notifications = () => {
                     background: 'none',
                     border: 'none',
                 }}
-                ><img
+            >
+                <img
                     src={close_icon}
                     style={{
                         height: '20px',
                         width: '20px'
-                    }} alt="Close"/></button>
+                    }} 
+                    alt="Close"
+                />
+            </button>
             <p>Here is the list of notifications</p>
             <ul>
                 <li data-priority="default">New course available</li>
@@ -35,4 +39,6 @@ export const Notifications = () => {
             </ul>
         </div>
     );
-}
+};
+
+export default Notifications; // ✅ Default export
