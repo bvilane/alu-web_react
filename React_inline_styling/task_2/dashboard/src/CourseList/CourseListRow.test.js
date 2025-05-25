@@ -9,7 +9,7 @@ beforeEach(() => {
 
 describe('<CourseListRow />', () => {
     it('renders an <CourseListRow /> component', () => {
-        const wrapper = shallow(<CourseListRow />);
+        const wrapper = shallow(<CourseListRow textFirstCell="Test cell" />);
         expect(wrapper).toHaveLength(1);
     });
 
